@@ -106,20 +106,20 @@ $ virtualenvwrapper
 
 * Virtualenv provides mechanism for environment variable management:
         
-        - preactivate: This hook is run before this virtualenv is activated.
+- preactivate: This hook is run before this virtualenv is activated.
         
-            ```shell
-                $ workon [ENV_NAME]
-                $ vim $VIRTUAL_ENV/bin/preactivate
-                #!/bin/bash
-                # This hook is run before this virtualenv is activated.
-            ```
+```shell
+$ workon [ENV_NAME]
+$ vim $VIRTUAL_ENV/bin/preactivate
+#!/bin/bash
+# This hook is run before this virtualenv is activated.
+```
 
-        - predeactivate: This hook is sourced before this virtualenv is deactivated.
+- predeactivate: This hook is sourced before this virtualenv is deactivated.
 
-        - postactivate: This hook is sourced after this virtualenv is activated.
+- postactivate: This hook is sourced after this virtualenv is activated.
 
-        - postdeactivate: This hook is sourced after this virtualenv is deactivated.
+- postdeactivate: This hook is sourced after this virtualenv is deactivated.
 
 * Remember that if using this for environment variables that might already be set in your environment then the unset will result in them being completely unset on leaving the virtualenv. So if that is at all probable you could record the previous value somewhere temporary then read it back in on deactivate.
 
