@@ -12,7 +12,7 @@ $ sudo pip install virtualenv virtualenvwrapper
 
 * Create a *.virtualenvs folder in your root
 
-``shell
+```shell
 $ cd ~
 $ mkdir .virtualenvs
 ```
