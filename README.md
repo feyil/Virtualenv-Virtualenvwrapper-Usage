@@ -102,8 +102,69 @@ $ virtualenvwrapper
   workon: list or change working virtualenvs
 ```
 
+### Environment Variable Management with Virtualenvwrapper
+
+* Virtualenv provides mechanism for environment variable management:
+        
+        - preactivate: This hook is run before this virtualenv is activated.
+        
+            ```shell
+                $ workon [ENV_NAME]
+                $ vim $VIRTUAL_ENV/bin/preactivate
+                #!/bin/bash
+                # This hook is run before this virtualenv is activated.
+            ```
+
+        - predeactivate: This hook is sourced before this virtualenv is deactivated.
+
+        - postactivate: This hook is sourced after this virtualenv is activated.
+
+        - postdeactivate: This hook is sourced after this virtualenv is deactivated.
+
+* Remember that if using this for environment variables that might already be set in your environment then the unset will result in them being completely unset on leaving the virtualenv. So if that is at all probable you could record the previous value somewhere temporary then read it back in on deactivate.
+
+```shell
+$ cat $VIRTUAL_ENV/bin/postactivate
+#!/bin/bash
+# This hook is run after this virtualenv is activated.
+if [[ -n $SOME_VAR ]]
+then
+    export SOME_VAR_BACKUP=$SOME_VAR
+fi
+export SOME_VAR=apple
+
+$ cat $VIRTUAL_ENV/bin/predeactivate
+#!/bin/bash
+# This hook is run before this virtualenv is deactivated.
+if [[ -n $SOME_VAR_BACKUP ]]
+then
+    export SOME_VAR=$SOME_VAR_BACKUP
+    unset SOME_VAR_BACKUP
+else
+    unset SOME_VAR
+fi
+```
+
+TEST 
+```shell
+$ echo $SOME_VAR
+banana
+
+$ workon myenv
+
+$ echo $SOME_VAR
+apple
+
+$ deactivate
+
+$ echo $SOME_VAR
+banana
+```
+
 ### References
 
 [how-to-install-opencv-4-on-ubuntu](https://www.pyimagesearch.com/2018/08/15/how-to-install-opencv-4-on-ubuntu/)
 
 [configuring-python-environment-with-virtualenvwrapper](https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745)
+
+[setting-an-environment-variable-in-virtualenv](https://stackoverflow.com/questions/9554087/setting-an-environment-variable-in-virtualenv)
