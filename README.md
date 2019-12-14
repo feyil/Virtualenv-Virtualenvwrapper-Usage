@@ -4,10 +4,17 @@ Inludes Description of How to Use Virtualenv and Virtualenvwrapper with Python
 
 ### Installation
 
-* Using pip install virtualenv and virtualenvwrapper to the system..
+* Using pip install virtualenv and virtualenvwrapper to the system.
 
 ```shell
 $ sudo pip install virtualenv virtualenvwrapper
+```
+
+* Create a *.virtualenvs folder in your root
+
+``shell
+$ cd ~
+$ mkdir .virtualenvs
 ```
 
 * Using vim add the following lines to your **.bashrc**
